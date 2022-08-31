@@ -1,0 +1,49 @@
+Are you using shared hosting? then i know you fetch problem with public in your url path. Yes, if you have laravel project and use shared hosting then you go on public folder and then run index.php file. So in your root doamin with public path is not good as for SEO too. So how we can remove public from url in laravel?.
+Actually i had also problem in my laravel 5.6 application and i need to upload it in godaddy shared hosting. I remove public from url path using .htaccess and server.php file. You have to just two step and you can also done with your laravel 5.6 application. So let's do it.
+
+-------------------------------------------------------
+Step 1: Rename File
+-------------------------------------------------------
+
+
+Basic CRUD Operations Using Vue.js Example
+VDO.AI
+In first step it is very easy and you need to just rename file name. you have to rename server.php to index.php at your laravel root directory.
+
+server.php
+INTO
+index.php
+
+-------------------------------------------------------
+Step 2: Update .htaccess
+-------------------------------------------------------
+
+first of all you have to copy .htaccess file and put it laravel root folder. You just copy .htaccess file from public folder and then update bellow code:
+
+.htaccess
+Options -MultiViews -Indexes
+
+
+RewriteEngine On
+# Handle Authorization Header
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+# Redirect Trailing Slashes If Not A Folder...
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
+# Handle Front Controller...
+RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(css|js|images)/(.*)$ public/$1/$2 [L,NC]
+
+-------------------------------------------------------
+Ok, now you can run and check it.
+
+I hope you found your best solution...
+-------------------------------------------------------
